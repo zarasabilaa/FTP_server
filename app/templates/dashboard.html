@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FTP Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-pink-50 min-h-screen">
+
+    <div class="max-w-7xl mx-auto p-6 space-y-6">
+
+        <h1 class="text-2xl font-bold text-pink-600">
+            FTP Client Dashboard
+        </h1>
+
+        <p class="text-sm text-slate-700">
+            Direktori saat ini (PWD):
+            <span class="font-mono bg-pink-100 text-pink-700 px-2 py-1 rounded">
+                {{ pwd }}
+            </span>
+        </p>
+
+        {% if message %}
+        <div class="bg-pink-100 text-pink-800 p-3 rounded">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="bg-rose-100 text-rose-800 p-3 rounded">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <!-- MENU 3 -->
+        <form method="post" class="flex gap-2">
+            <input name="folder"
+                   placeholder="Pindah direktori"
+                   class="border border-pink-200 rounded px-3 py-2 w-full focus:ring-2 focus:ring-pink-300">
+            <button class="bg-pink-500 hover:bg-pink-600 text-white px-4 rounded">
+                Pindah
+            </button>
+        </form>
+
+        <!-- MENU 6 -->
+        <form method="post" enctype="multipart/form-data" class="flex gap-2">
+            <input type="file"
+                   name="file"
+                   class="border border-pink-200 rounded px-3 py-2 w-full">
+            <button class="bg-rose-400 hover:bg-rose-500 text-white px-4 rounded">
+                Upload
+            </button>
+        </form>
+
+        <!-- MENU 2,5 -->
+        <h2 class="font-semibold mt-4 text-pink-600">
+            Daftar Direktori & File Server
+        </h2>
+
+        <div class="bg-white rounded p-4">
+            <ul class="space-y-2 font-mono text-sm">
+                {% for i in items %}
+                <li class="flex justify-between items-center">
+
+                    {% if i.type == "dir" %}
+                    <!-- FOLDER -->
+                    <a href="/cd/{{ i.name }}"
+                       class="text-pink-700 hover:underline flex items-center gap-2">
+                        📁 {{ i.name }}
+                    </a>
+                    {% else %}
+                    <!-- FILE -->
+                    <span class="flex items-center gap-2 text-slate-700">
+                        📄 {{ i.name }}
+                    </span>
+
+                    <div class="space-x-3">
+                        <a href="/download/{{ i.name }}"
+                           class="text-pink-600 hover:underline">
+                            Download
+                        </a>
+                        <a href="/delete/{{ i.name }}"
+                           class="text-rose-600 hover:underline">
+                            Delete
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- MENU 0 -->
+        <a href="/logout"
+           class="mt-4 inline-block bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded">
+            Keluar
+        </a>
+
+    </div>
+</body>
+
+</html>

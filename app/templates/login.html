@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center bg-pink-50">
+
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-md p-6">
+
+        <h2 class="text-2xl font-bold mb-6 text-pink-600 text-center">
+            Login FTP Server
+        </h2>
+
+        {% if error %}
+        <div class="bg-rose-100 text-rose-700 px-4 py-2 rounded mb-4 text-sm">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" class="space-y-4">
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    Username FTP
+                </label>
+                <input name="username"
+                       class="w-full border border-pink-200 rounded-xl px-3 py-2
+                              focus:outline-none focus:ring-2 focus:ring-pink-300">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    Password FTP
+                </label>
+                <input type="password"
+                       name="password"
+                       class="w-full border border-pink-200 rounded-xl px-3 py-2
+                              focus:outline-none focus:ring-2 focus:ring-pink-300">
+            </div>
+
+            <button class="w-full bg-pink-500 hover:bg-pink-600 text-white
+                           px-4 py-2 rounded-xl font-medium transition">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
